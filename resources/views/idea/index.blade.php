@@ -1,3 +1,13 @@
+<div>
+    <h1>Add a new idea</h1>
+    @auth
+        <livewire:create-idea />
+    @else
+        <span>Please login to add an idea</span>
+        <a href="{{ route('login') }}">Login</a>
+    @endauth
+</div>
+
 @foreach($ideas as $idea)
     <img src="{{ $idea->user->avatar }}" alt="Avatar" />
     <h1>{{ $idea->title }}</h1>
