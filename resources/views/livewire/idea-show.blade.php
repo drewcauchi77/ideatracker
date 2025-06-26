@@ -4,5 +4,6 @@
     <p>{{ $idea->description }}</p>
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>
+    <livewire:idea-index :votesCount="$votesCount" /><br/>
     <span>{{ $idea->user->name }}</span><br>
 </div>

@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Idea;
 use Livewire\Component;
 
-class IdeaShow extends Component
+class IdeaIndex extends Component
 {
     public $idea;
     public $votesCount;
@@ -18,6 +18,6 @@ class IdeaShow extends Component
 
     public function render()
     {
-        return view('livewire.idea-show');
+        return view('livewire.idea-index');
     }
 }

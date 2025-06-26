@@ -9,7 +9,7 @@
 </div>
 
 @foreach($ideas as $idea)
-    <livewire:idea-show :idea="$idea" />
+    <livewire:idea-show :idea="$idea" :votesCount="$idea->votes_count" />
     <a href="{{ route('idea.show', $idea) }}">Go To Idea</a><br>
 @endforeach
 
