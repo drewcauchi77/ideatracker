@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Idea;
+use App\Models\User;
 use App\Models\Status;
 
 test('list of ideas shows on ideas page', function () {
@@ -12,6 +13,7 @@ test('list of ideas shows on ideas page', function () {
     $statusConsidering = Status::factory()->create([ 'name' => 'Considering', 'color' => 'purple' ]);
 
     $ideaOne = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
         'title' => 'Idea 1',
         'category_id' => $categoryOne->id,
         'status_id' => $statusOpen->id,
@@ -19,6 +21,7 @@ test('list of ideas shows on ideas page', function () {
     ]);
 
     $ideaTwo = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
         'title' => 'Idea 2',
         'category_id' => $categoryTwo->id,
         'status_id' => $statusConsidering->id,
@@ -45,6 +48,7 @@ test('shows correctly on the show page', function () {
     $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
 
     $idea = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
         'title' => 'Idea 1',
         'category_id' => $categoryOne->id,
         'status_id' => $statusOpen->id,
@@ -67,6 +71,7 @@ test('ideas pagination works', function () {
 
     $paginationCountPlusOne = Idea::PAGINATION_COUNT + 1;
     Idea::factory($paginationCountPlusOne)->create([
+        'user_id' => User::factory()->create()->id,
         'category_id' => $categoryOne->id,
         'status_id' => $statusOpen->id,
     ]);
@@ -97,6 +102,7 @@ test('same idea titles have different slugs', function () {
     $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
 
     $ideaOne = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
         'title' => 'My Idea Title',
         'category_id' => $categoryOne->id,
         'status_id' => $statusOpen->id,
@@ -104,6 +110,7 @@ test('same idea titles have different slugs', function () {
     ]);
 
     $ideaTwo = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
         'title' => 'My Idea Title',
         'category_id' => $categoryOne->id,
         'status_id' => $statusOpen->id,

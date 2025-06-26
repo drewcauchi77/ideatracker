@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create([
+            'name' => 'Andrew',
+            'email' => 'drewcauchi@gmail.com'
+        ]);
+
+        User::factory(19)->create();
+
         Category::factory(4)->create();
 
         Status::factory()->create(['name' => 'Open', 'color' => 'green']);
@@ -23,6 +32,8 @@ class DatabaseSeeder extends Seeder
         Status::factory()->create(['name' => 'Implemented', 'color' => 'blue']);
         Status::factory()->create(['name' => 'Closed', 'color' => 'red']);
 
-        Idea::factory(30)->create();
+        Idea::factory(100)->create();
+
+        Vote::factory(50)->create();
     }
 }
