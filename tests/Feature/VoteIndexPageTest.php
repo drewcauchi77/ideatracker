@@ -73,3 +73,25 @@ test('votes count shows correctly on idea index page livewire component', functi
     ])->assertSet('votesCount', 5)
         ->assertSeeHtml('<span class="votes-count">Number of Votes: <strong>5</strong></span>');
 });
+
+test('user who is logged in shows voted if idea already voted for in index page', function () {
+    $user = User::factory()->create();
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => $user->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    Vote::factory()->create([
+        'idea_id' => $idea->id,
+        'user_id' => $user->id,
+    ]);
+
+    $response = $this->actingAs($user)->get(route('idea.index'));
+    $response->assertSee('Voted');
+});
