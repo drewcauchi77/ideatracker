@@ -97,3 +97,51 @@ test('user who is logged in shows voted if idea already voted for', function () 
         ])->assertSet('hasVoted', true)
         ->assertSee('Voted');
 });
+
+test('user who is not logged in is redirected to login page when trying to vote', function () {
+    $user = User::factory()->create();
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => $user->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    Livewire::test(IdeaShow::class, [
+        'idea' => $idea,
+        'votesCount' => 5,
+    ])->call('vote')
+        ->assertRedirect(route('login'));
+});
+
+test('user who is logged can vote for idea', function () {
+    $user = User::factory()->create();
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => $user->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(IdeaShow::class, [
+            'idea' => $idea,
+            'votesCount' => 5,
+        ])->call('vote')
+        ->assertSet('votesCount', 6)
+        ->assertSet('hasVoted', true)
+        ->assertSee('Voted');
+
+    $this->assertDatabaseHas('votes', [
+        'idea_id' => $idea->id,
+        'user_id' => $user->id,
+    ]);
+});

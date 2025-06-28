@@ -95,3 +95,23 @@ test('user who is logged in shows voted if idea already voted for in index page'
     $response = $this->actingAs($user)->get(route('idea.index'));
     $response->assertSee('Voted');
 });
+
+test('user who is not logged in is redirected to login page when trying to vote', function () {
+    $user = User::factory()->create();
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => $user->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    Livewire::test(IdeaIndex::class, [
+        'idea' => $idea,
+        'votesCount' => 5,
+    ])->call('vote')
+        ->assertRedirect(route('login'));
+});

@@ -18,6 +18,13 @@ class IdeaIndex extends Component
         $this->hasVoted = $idea->voted_by_user;
     }
 
+    public function vote()
+    {
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+    }
+
     public function render()
     {
         return view('livewire.idea-index');
