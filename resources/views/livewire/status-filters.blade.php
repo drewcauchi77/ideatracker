@@ -1,0 +1,26 @@
+<div style="font-size: 22px;">
+    <strong>
+        <a wire:click.prevent="setStatus('All')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'All') color:blue; text-decoration: underline; @endif">All</a>
+    </strong>
+    <strong>
+        <a wire:click.prevent="setStatus('Open')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'Open') color:blue; text-decoration: underline; @endif">Open</a>
+    </strong>
+    <strong>
+        <a wire:click.prevent="setStatus('Considering')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'Considering') color:blue; text-decoration: underline; @endif">Considering</a>
+    </strong>
+    <strong>
+        <a wire:click.prevent="setStatus('In Progress')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'In Progress') color:blue; text-decoration: underline; @endif">In Progress</a>
+    </strong>
+    <strong>
+        <a wire:click.prevent="setStatus('Implemented')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'Implemented') color:blue; text-decoration: underline; @endif">Implemented</a>
+    </strong>
+    <strong>
+        <a wire:click.prevent="setStatus('Closed')" style="cursor:pointer; margin-right:10px;
+            @if($status == 'Closed') color:blue; text-decoration: underline; @endif">Closed</a>
+    </strong>
+</div>

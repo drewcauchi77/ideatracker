@@ -1,3 +1,4 @@
+<livewire:status-filters />
 <a href="{{ route('idea.index') }}">Go Back</a>
 
 <h1>Idea</h1>

@@ -7,6 +7,7 @@ use App\Models\Idea;
 use App\Models\Vote;
 use Livewire\Livewire;
 use App\Livewire\IdeaIndex;
+use App\Livewire\IdeasIndex;
 
 test('show index page contains idea index livewire component', function () {
     $user = User::factory()->create();
@@ -24,7 +25,7 @@ test('show index page contains idea index livewire component', function () {
     $this->get(route('idea.index'))->assertSeeLivewire('idea-index');
 });
 
-test('index page correctly receives votes count', function () {
+test('ideas index page correctly receives votes count', function () {
     $userA = User::factory()->create();
     $userB = User::factory()->create();
 
@@ -49,9 +50,10 @@ test('index page correctly receives votes count', function () {
         'user_id' => $userB->id,
     ]);
 
-    $this->get(route('idea.index'))->assertViewHas('ideas', function($ideas) {
-        return $ideas->first()->votes_count == 2;
-    });
+    Livewire::test(IdeasIndex::class)
+        ->assertViewHas('ideas', function($ideas) {
+            return $ideas->first()->votes_count == 2;
+        });
 });
 
 test('votes count shows correctly on idea index page livewire component', function () {

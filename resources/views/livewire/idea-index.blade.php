@@ -1,4 +1,3 @@
-
 <div>
     <h1>IDEA-LIST ITEM</h1>
     <img src="{{ $idea->user->avatar }}" alt="Avatar" />
