@@ -8,8 +8,6 @@
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
     @if($hasVoted)
         <span style="color: blue;font-size: 18px">!!! You have already voted for this !!!</span><br>
-    @endif
-    @if($hasVoted)
         <button style="background:blue; color: white; font-size:22px; font-weight: 800;cursor:pointer;" wire:click.prevent="vote">
             Voted
         </button>
