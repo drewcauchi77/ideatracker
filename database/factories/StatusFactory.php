@@ -17,7 +17,8 @@ class StatusFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucwords($this->faker->word)
+            'name' => ucwords($this->faker->word),
+            'color' => 'green',
         ];
     }
 }
