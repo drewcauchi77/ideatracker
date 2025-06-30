@@ -9,6 +9,13 @@
         @endauth
     </div>
 
+    <select name="category" wire:model.live="category">
+        <option value="All Categories">All Categories</option>
+        @foreach($categories as $category)
+            <option value="{{ $category->name }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+
     @foreach($ideas as $idea)
         <livewire:idea-index :idea="$idea" :votesCount="$idea->votes_count" :key="$idea->id"></livewire:idea-index>
         <br/>
@@ -18,3 +25,5 @@
         {{ $ideas->links() }}
     </div>
 </div>
+
+@livewireScripts

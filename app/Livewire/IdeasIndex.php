@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\Vote;
@@ -13,20 +14,39 @@ class IdeasIndex extends Component
     use WithPagination;
 
     public $status = 'All';
+    public $category = 'All Categories';
+
+    protected $queryString = ['status', 'category'];
+
+    protected $listeners = ['queryStringUpdatedStatus'];
 
     public function mount()
     {
         $this->status = request()->status ?? 'All';
+        $this->category = request()->status ?? 'All Categories';
+    }
+
+    public function updatingCategory() {
+        $this->resetPage();
+    }
+
+    public function queryStringUpdatedStatus($newStatus) {
+        $this->status = $newStatus;
+        $this->resetPage();
     }
 
     public function render()
     {
         $statuses = Status::all()->pluck('id', 'name');
+        $categories = Category::all();
 
         return view('livewire.ideas-index', [
             'ideas' => Idea::with('user', 'category', 'status')
                 ->when($this->status && $this->status !== 'All', function ($q) use ($statuses) {
                     return $q->where('status_id', $statuses->get($this->status));
+                })
+                ->when($this->category && $this->category !== 'All Categories', function ($q) use ($categories) {
+                    return $q->where('category_id', $categories->pluck('id', 'name')->get($this->category));
                 })
                 ->addSelect(['voted_by_user' => Vote::select('id')
                     ->where('user_id', auth()->id())
@@ -35,6 +55,7 @@ class IdeasIndex extends Component
                 ->withCount('votes')
                 ->orderBy('id', 'desc')
                 ->paginate(Idea::PAGINATION_COUNT),
+            'categories' => $categories,
         ]);
     }
 }
