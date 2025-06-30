@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\IdeasIndex;
 use App\Livewire\StatusFilters;
 use App\Models\Category;
 use App\Models\Idea;
@@ -83,10 +84,12 @@ test('filtering works when query string in place', function () {
         ]);
     }
 
-    $response = $this->get(route('idea.index', ['status' => 'In Progress']));
-    $response->assertSuccessful();
-    $response->assertSeeHtml('<span>Status: <strong style="color: green;">In Progress</strong></span>');
-    $response->assertDontSeeHtml('<span>Status: <strong style="color: blue;">Implemented</strong></span>');
+    Livewire::withQueryParams([
+        'status' => 'In Progress'
+    ])->test(IdeasIndex::class)
+        ->assertViewHas('ideas', function ($ideas) use ($statusCounts) {
+            return $ideas->count() == $statusCounts[2] && $ideas->first()->status->name == 'In Progress';
+        });
 });
 
 test('show page does not show selected status', function () {

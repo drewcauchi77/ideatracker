@@ -13,8 +13,8 @@ class IdeasIndex extends Component
 {
     use WithPagination;
 
-    public $status = 'All';
-    public $category = 'All Categories';
+    public $status;
+    public $category;
 
     protected $queryString = ['status', 'category'];
 
@@ -23,7 +23,7 @@ class IdeasIndex extends Component
     public function mount()
     {
         $this->status = request()->status ?? 'All';
-        $this->category = request()->status ?? 'All Categories';
+        $this->category = request()->category ?? 'All Categories';
     }
 
     public function updatingCategory() {
