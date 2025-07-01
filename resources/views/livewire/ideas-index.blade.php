@@ -16,6 +16,12 @@
         @endforeach
     </select>
 
+    <select name="category" wire:model.live="filter">
+        <option value="No Filter">No Filter</option>
+        <option value="Top Voted">Top Voted</option>
+        <option value="My Ideas">My Ideas</option>
+    </select>
+
     @foreach($ideas as $idea)
         <livewire:idea-index :idea="$idea" :votesCount="$idea->votes_count" :key="$idea->id"></livewire:idea-index>
         <br/>

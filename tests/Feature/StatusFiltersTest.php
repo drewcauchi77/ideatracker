@@ -73,7 +73,17 @@ test('filtering works when query string in place', function () {
 
     $statusCounts = [0, 0, 0, 0, 0];
 
-    for ($i = 1; $i <= 15; $i++) {
+    for ($i = 0; $i < count($statusCounts); $i++) {
+        $statusCounts[$i] = $statusCounts[$i] + 1;
+
+        Idea::factory()->create([
+            'user_id' => $user->id,
+            'category_id' => $categoryOne->id,
+            'status_id' => $i + 1,
+        ]);
+    }
+
+    for ($i = 0; $i < 10; $i++) {
         $selectedStatus = rand(1, 5);
         $statusCounts[$selectedStatus - 1] = $statusCounts[$selectedStatus - 1] + 1;
 
