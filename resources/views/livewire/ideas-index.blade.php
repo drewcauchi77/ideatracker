@@ -22,10 +22,14 @@
         <option value="My Ideas">My Ideas</option>
     </select>
 
-    @foreach($ideas as $idea)
+    <input type="search" wire:model.live="search" placeholder="Search...">
+
+    @forelse($ideas as $idea)
         <livewire:idea-index :idea="$idea" :votesCount="$idea->votes_count" :key="$idea->id"></livewire:idea-index>
         <br/>
-    @endforeach
+    @empty
+        <div>No ideas were found!</div>
+    @endforelse
 
     <div style="display:flex">
         {{ $ideas->links() }}
