@@ -129,3 +129,40 @@ test('same idea titles have different slugs', function () {
     $this->assertTrue(request()->path() === 'ideas/my-idea-title-2');
     $response->assertSee('<strong style="color: green;">Open</strong>', false);
 });
+
+test('in app back button works when index page visited first', function () {
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    $response = $this->get('/ideas?category=Category%20One&status=Open');
+    $response = $this->get(route('idea.show', $idea));
+
+    $this->assertStringContainsString('/ideas?category=Category%20One&status=Open', $response['backUrl']);
+});
+
+test('in app back button works when show page is the only page visited', function () {
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+
+    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
+
+    $idea = Idea::factory()->create([
+        'user_id' => User::factory()->create()->id,
+        'title' => 'Idea 1',
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusOpen->id,
+        'description' => 'Idea 1 description',
+    ]);
+
+    $response = $this->get(route('idea.show', $idea));
+
+    $this->assertEquals(route('home'), $response['backUrl']);
+});
