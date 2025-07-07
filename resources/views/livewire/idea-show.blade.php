@@ -5,6 +5,13 @@
     <p>{{ $idea->description }}</p>
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>
+
+    @auth
+        @if (auth()->user()->isAdmin())
+            <livewire:set-status :idea="$idea"></livewire:set-status>
+        @endif
+    @endauth
+
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
     @if($hasVoted)
         <span style="color: blue;font-size: 18px">!!! You have already voted for this !!!</span><br>

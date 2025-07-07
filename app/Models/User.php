@@ -84,4 +84,9 @@ class User extends Authenticatable
             .md5($this->email)
             ."?s=100&d=https://s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-".$integerToUse.".png";
     }
+
+    public function isAdmin()
+    {
+        return $this->email == 'drewcauchi@gmail.com';
+    }
 }
