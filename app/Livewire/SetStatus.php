@@ -24,6 +24,8 @@ class SetStatus extends Component
 
         $this->idea->status_id = $this->status;
         $this->idea->save();
+
+        $this->dispatch('statusWasUpdated');
     }
 
     public function render()
