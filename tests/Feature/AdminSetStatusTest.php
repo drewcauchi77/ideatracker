@@ -1,10 +1,12 @@
 <?php
 
+use App\Jobs\NotifyAllVoters;
 use App\Livewire\SetStatus;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
 use App\Models\User;
+use Illuminate\Support\Facades\Queue;
 use Livewire\Livewire;
 
 test('show page contains set status livewire component when user is admin', function () {
@@ -97,4 +99,35 @@ test('can set status correctly', function() {
         'id' => $ideaOne->id,
         'status_id' => $statusInProgress->id,
     ]);
+});
+
+test('can set status correctly while notifying all voters', function() {
+    $userA = User::factory()->create([
+        'email' => 'drewcauchi@gmail.com'
+    ]);
+
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusConsidering = Status::factory()->create([ 'name' => 'Considering', 'id' => 2 ]);
+    $statusInProgress = Status::factory()->create([ 'name' => 'Considering', 'id' => 3 ]);
+
+    $ideaOne = Idea::factory()->create([
+        'user_id' => $userA->id,
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusConsidering->id,
+        'title' => 'My First Idea'
+    ]);
+
+    Queue::fake();
+    Queue::assertNothingPushed();
+
+    Livewire::actingAs($userA)
+        ->test(SetStatus::class, [
+            'idea' => $ideaOne,
+        ])
+        ->set('status', $statusInProgress->id)
+        ->set('notifyAllVoters', true)
+        ->call('setStatus')
+        ->assertDispatched('statusWasUpdated');
+
+    Queue::assertPushed(NotifyAllVoters::class);
 });
