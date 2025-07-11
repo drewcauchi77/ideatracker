@@ -62,6 +62,11 @@ test('creating an idea works correctly', function () {
     $this->assertDatabaseHas('ideas', [
         'title' => 'Title Name',
     ]);
+
+    $this->assertDatabaseHas('votes', [
+        'idea_id' => 1,
+        'user_id' => $user->id
+    ]);
 });
 
 test('creating two ideas with same title still works with different slugs', function () {

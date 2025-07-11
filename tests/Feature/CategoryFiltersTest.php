@@ -11,30 +11,16 @@ test('selecting a category filter correctly', function () {
     $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
     $categoryTwo = Category::factory()->create([ 'name' => 'Category Two' ]);
 
-    $statusOpen = Status::factory()->create([ 'name' => 'Open', 'color' => 'green' ]);
-
     Idea::factory()->create([
-        'user_id' => User::factory()->create()->id,
-        'title' => 'Idea 1',
         'category_id' => $categoryOne->id,
-        'status_id' => $statusOpen->id,
-        'description' => 'Idea 1 description',
     ]);
 
     Idea::factory()->create([
-        'user_id' => User::factory()->create()->id,
-        'title' => 'Idea 2',
         'category_id' => $categoryTwo->id,
-        'status_id' => $statusOpen->id,
-        'description' => 'Idea 2 description',
     ]);
 
     Idea::factory()->create([
-        'user_id' => User::factory()->create()->id,
-        'title' => 'Idea 3',
         'category_id' => $categoryOne->id,
-        'status_id' => $statusOpen->id,
-        'description' => 'Idea 3 description',
     ]);
 
     Livewire::test(IdeasIndex::class)
