@@ -4,14 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\Idea;
-use App\Models\Vote;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateIdea extends Component
+class EditIdea extends Component
 {
+    public $idea;
     public $title;
-    public $category = 1;
+    public $category;
     public $description;
 
     protected $rules = [
@@ -20,34 +20,33 @@ class CreateIdea extends Component
         'category' => 'required|integer|exists:categories,id',
     ];
 
-    public function createIdea() {
-        if (auth()->guest()) {
+    public function mount(Idea $idea) {
+        $this->idea = $idea;
+        $this->title = $idea->title;
+        $this->category = $idea->category_id;
+        $this->description = $idea->description;
+    }
+
+    public function updateIdea() {
+        if (auth()->guest() || auth()->user()->cannot('update', $this->idea)) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
         $this->validate();
 
-        $idea = Idea::create([
-            'user_id' => auth()->id(),
-            'category_id' => $this->category,
-            'status_id' => 1,
+        $this->idea->update([
             'title' => $this->title,
+            'category_id' => $this->category,
             'description' => $this->description,
         ]);
 
-        $idea->vote(auth()->user());
-
-        session()->flash('success_message', 'Idea was added successfully!');
-
-        $this->reset();
-
-        return redirect()->route('idea.index');
+        $this->dispatch('ideaWasUpdated');
     }
 
     public function render()
     {
-        return view('livewire.create-idea', [
-            'categories' => Category::all()
+        return view('livewire.edit-idea', [
+            'categories' => Category::all(),
         ]);
     }
 }

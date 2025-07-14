@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Idea;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\Response;
 
 class IdeaPolicy
@@ -37,7 +38,7 @@ class IdeaPolicy
      */
     public function update(User $user, Idea $idea): bool
     {
-        return false;
+        return $user->id === (int)$idea->user_id && Carbon::now()->subHour() <= $idea->created_at;
     }
 
     /**

@@ -13,6 +13,7 @@
     @endauth
 
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
+
     @if($hasVoted)
         <span style="color: blue;font-size: 18px">!!! You have already voted for this !!!</span><br>
         <button style="background:blue; color: white; font-size:22px; font-weight: 800;cursor:pointer;" wire:click.prevent="vote">
@@ -23,7 +24,12 @@
             Vote Now
         </button>
     @endif
+
     <br><span>{{ $idea->user->name }}</span><br>
+
+    @can('update', $idea)
+        <livewire:edit-idea :idea="$idea"></livewire:edit-idea>
+    @endcan
 </div>
 
 @livewireScripts

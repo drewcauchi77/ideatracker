@@ -10,7 +10,7 @@ test('can check if user is an admin', function () {
 
     $userB = User::factory()->create([
         'name' => 'Andrew',
-        'email' => 'drewcauchi@gmail.com'
+        'email' => 'cauchi1020@gmail.com'
     ]);
 
     $this->assertFalse($userA->isAdmin());

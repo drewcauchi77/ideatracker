@@ -11,7 +11,7 @@ use Livewire\Livewire;
 
 test('show page contains set status livewire component when user is admin', function () {
     $userA = User::factory()->create([
-        'email' => 'drewcauchi@gmail.com'
+        'email' => 'cauchi1020@gmail.com'
     ]);
 
     $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
@@ -51,7 +51,7 @@ test('show page does not contain set status livewire component when user is not 
 
 test('initial status is set correctly', function() {
     $userA = User::factory()->create([
-        'email' => 'drewcauchi@gmail.com'
+        'email' => 'cauchi1020@gmail.com'
     ]);
 
     $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
@@ -73,7 +73,7 @@ test('initial status is set correctly', function() {
 
 test('can set status correctly', function() {
     $userA = User::factory()->create([
-        'email' => 'drewcauchi@gmail.com'
+        'email' => 'cauchi1020@gmail.com'
     ]);
 
     $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
@@ -103,7 +103,7 @@ test('can set status correctly', function() {
 
 test('can set status correctly while notifying all voters', function() {
     $userA = User::factory()->create([
-        'email' => 'drewcauchi@gmail.com'
+        'email' => 'cauchi1020@gmail.com'
     ]);
 
     $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
