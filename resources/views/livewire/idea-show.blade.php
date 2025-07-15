@@ -30,6 +30,8 @@
     @can('update', $idea)
         <livewire:edit-idea :idea="$idea"></livewire:edit-idea>
     @endcan
+
+    <livewire:delete-idea :idea="$idea"></livewire:delete-idea>
 </div>
 
 @livewireScripts
