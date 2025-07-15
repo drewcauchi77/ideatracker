@@ -16,7 +16,7 @@
             Vote Now
         </button>
     @endif
-    <br><span>{{ $idea->user->name }}</span><br>
+    <br><span>{{ $idea->user->name }} : {{ $idea->user->email }}</span><br>
     <a href="{{ route('idea.show', $idea) }}">Go To Idea</a><br>
 </div>
 

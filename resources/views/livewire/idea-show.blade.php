@@ -31,7 +31,9 @@
         <livewire:edit-idea :idea="$idea"></livewire:edit-idea>
     @endcan
 
-    <livewire:delete-idea :idea="$idea"></livewire:delete-idea>
+    @can('delete', $idea)
+        <livewire:delete-idea :idea="$idea"></livewire:delete-idea>
+    @endcan
 </div>
 
 @livewireScripts

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Idea;
 use App\Models\Vote;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class DeleteIdea extends Component
 {
@@ -15,6 +16,10 @@ class DeleteIdea extends Component
     }
 
     public function deleteIdea() {
+        if (auth()->guest() || auth()->user()->cannot('delete', $this->idea)) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         Vote::where('idea_id', $this->idea->id)->delete();
         Idea::destroy($this->idea->id);
 
