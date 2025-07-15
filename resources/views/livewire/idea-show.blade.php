@@ -2,15 +2,18 @@
     <h1>IDEA-SHOW</h1>
     <img src="{{ $idea->user->avatar }}" alt="Avatar" />
     <span>{{ $idea->title }}</span><br>
+    @admin
+        @if ($idea->spam_reports > 0)
+            <strong style="color: red; font-size: 15px;">Spam Reports {{ $idea->spam_reports }}</strong>
+        @endif
+    @endadmin
     <p>{{ $idea->description }}</p>
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>
 
-    @auth
-        @if (auth()->user()->isAdmin())
-            <livewire:set-status :idea="$idea"></livewire:set-status>
-        @endif
-    @endauth
+    @admin
+        <livewire:set-status :idea="$idea"></livewire:set-status>
+    @endadmin
 
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
 
@@ -34,6 +37,13 @@
     @can('delete', $idea)
         <livewire:delete-idea :idea="$idea"></livewire:delete-idea>
     @endcan
+
+    @auth
+        <livewire:mark-idea-as-spam :idea="$idea"></livewire:mark-idea-as-spam>
+        @if ($idea->spam_reports > 0)
+            <livewire:mark-idea-as-not-spam :idea="$idea"></livewire:mark-idea-as-not-spam>
+        @endif
+    @endauth
 </div>
 
 @livewireScripts

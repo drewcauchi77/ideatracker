@@ -2,6 +2,11 @@
     <h1>IDEA-LIST ITEM</h1>
     <img src="{{ $idea->user->avatar }}" alt="Avatar" />
     <span>{{ $idea->title }}</span><br>
+    @admin
+        @if ($idea->spam_reports > 0)
+            <strong style="color: red; font-size: 15px;">Spam Reports {{ $idea->spam_reports }}</strong>
+       @endif
+    @endadmin
     <p>{{ $idea->description }}</p>
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>

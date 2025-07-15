@@ -29,6 +29,12 @@ class DatabaseSeeder extends Seeder
 
         Idea::factory(100)->existing()->create();
 
-        Vote::factory(50)->create();
+        for ($ideaId = 2; $ideaId <= 100; $ideaId += 2) {
+            $userIds = collect(range(1, 20))->shuffle()->take(20);
+
+            foreach ($userIds as $userId) {
+                Vote::factory()->forIdeaAndUser($ideaId, $userId)->create();
+            }
+        }
     }
 }

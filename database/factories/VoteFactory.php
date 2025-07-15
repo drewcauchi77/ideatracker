@@ -21,4 +21,17 @@ class VoteFactory extends Factory
             'user_id' => $this->faker->numberBetween(1, 20),
         ];
     }
+
+    /**
+     * Create a vote for a specific idea and user
+     */
+    public function forIdeaAndUser(int $ideaId, int $userId): static
+    {
+        return $this->state(function (array $attributes) use ($ideaId, $userId) {
+            return [
+                'idea_id' => $ideaId,
+                'user_id' => $userId,
+            ];
+        });
+    }
 }
