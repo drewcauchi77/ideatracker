@@ -1,6 +1,5 @@
-<div>
-    <h3>Mark Idea as Spam</h3>
-    <p>Are you sure you want to mark idea as spam?</p>
+<x-modal-confirm modalTitle="Mark Idea as Spam"
+                 modalDescription="Are you sure you want to mark idea as spam?"
+                 modalConfirmButtonText="Mark as Spam"
+                 wireClick="markAsSpam" />
 
-    <button wire:click="markAsSpam" style="background-color: purple; color: white;">Mark as Spam</button>
-</div>
