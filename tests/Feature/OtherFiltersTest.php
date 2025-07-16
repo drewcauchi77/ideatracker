@@ -200,3 +200,33 @@ test('no filter works correctly', function () {
             return $ideas->count() == 3 && $ideas->first()->title == 'My 3 Idea' && $ideas->get(1)->title == 'My 2 Idea';
         });
 });
+
+test('spam ideas filter works correctly', function () {
+    $user = User::factory()->create([
+        'email' => 'cauchi1020@gmail.com'
+    ]);
+
+    Idea::factory()->create([
+        'title' => 'My 1 Idea',
+        'spam_reports' => 6
+    ]);
+
+    Idea::factory()->create([
+        'title' => 'My 2 Idea',
+        'spam_reports' => 5
+    ]);
+
+    Idea::factory()->create([
+        'title' => 'My 3 Idea',
+        'spam_reports' => 7
+    ]);
+
+    Idea::factory()->create();
+
+    Livewire::actingAs($user)
+        ->test(IdeasIndex::class)
+        ->set('filter', 'Spam Ideas')
+        ->assertViewHas('ideas', function ($ideas) {
+            return $ideas->count() == 3 && $ideas->first()->title == 'My 3 Idea' && $ideas->get(1)->title == 'My 1 Idea';
+        });
+});

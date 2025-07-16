@@ -32,11 +32,13 @@ class IdeaShow extends Component
         $this->idea->refresh();
     }
 
-    public function ideaWasMarkedAsSpam() {
+    public function ideaWasMarkedAsSpam()
+    {
         $this->idea->refresh();
     }
 
-    public function ideaWasMarkedAsNotSpam() {
+    public function ideaWasMarkedAsNotSpam()
+    {
         $this->idea->refresh();
     }
 
