@@ -31,6 +31,8 @@
 
     <br><span>{{ $idea->user->name }}</span><br>
 
+    <livewire:add-comment :idea="$idea" />
+
     <x-modals-container :idea="$idea" />
 </div>
 

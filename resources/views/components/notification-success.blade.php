@@ -27,8 +27,11 @@
                 Livewire.on('ideaWasMarkedAsNotSpam', (message) => {
                     this.showNotification(message);
                 })
-            @endif
 
+                Livewire.on('commentWasAdded', (message) => {
+                    this.showNotification(message);
+                })
+            @endif
         }
      }"
     x-show="isOpen"
