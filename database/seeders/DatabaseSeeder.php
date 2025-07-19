@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\Status;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -35,6 +36,12 @@ class DatabaseSeeder extends Seeder
             foreach ($userIds as $userId) {
                 Vote::factory()->forIdeaAndUser($ideaId, $userId)->create();
             }
+        }
+
+        foreach (Idea::all() as $idea) {
+            Comment::factory()->count(5)->state([
+                'idea_id' => $idea->id
+            ])->existing()->create();
         }
     }
 }

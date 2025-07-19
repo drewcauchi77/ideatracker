@@ -84,6 +84,7 @@ class IdeasIndex extends Component
                     ->whereColumn('idea_id', 'ideas.id')
                 ])
                 ->withCount('votes')
+                ->withCount('comments')
                 ->orderBy('id', 'desc')
                 ->paginate(Idea::PAGINATION_COUNT),
             'categories' => $categories,

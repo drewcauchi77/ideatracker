@@ -4,6 +4,7 @@ use App\Livewire\DeleteIdea;
 use App\Livewire\EditIdea;
 use App\Livewire\IdeaShow;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
 use App\Models\Vote;
@@ -68,6 +69,28 @@ test('deleting an idea with votes works when user has authorisation', function (
 
     $this->assertEquals(Idea::count(), 0);
     $this->assertEquals(Vote::count(), 0);
+});
+
+test('deleting an idea with comments works when user has authorisation', function () {
+    $user = User::factory()->create();
+
+    $idea = Idea::factory()->create([
+        'user_id' => $user->id
+    ]);
+
+    Comment::factory(1)->create([
+        'idea_id' => $idea->id,
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(DeleteIdea::class, [
+            'idea' => $idea,
+        ])
+        ->call('deleteIdea')
+        ->assertRedirect(route('idea.index'));
+
+    $this->assertEquals(Idea::count(), 0);
+    $this->assertEquals(Comment::count(), 0);
 });
 
 test('deleting an idea works when user is admin', function () {
