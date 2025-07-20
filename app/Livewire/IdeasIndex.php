@@ -77,6 +77,11 @@ class IdeasIndex extends Component
                 ->when($this->filter == 'Spam Ideas', function ($q) {
                     return $q->where('spam_reports', '>', 0)->orderByDesc('spam_reports');
                 })
+                ->when($this->filter == 'Spam Comments', function ($q) {
+                    return $q->whereHas('comments', function($query) {
+                        $query->where('spam_reports', '>', 0);
+                    });
+                })
                 ->when(strlen($this->search) >= 3, function ($q) {
                     return $q->where('title', 'like', '%' . $this->search . '%');
                 })

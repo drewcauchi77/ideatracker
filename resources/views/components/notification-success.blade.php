@@ -39,6 +39,10 @@
                 Livewire.on('commentWasDeleted', (message) => {
                     this.showNotification(message);
                 })
+
+                Livewire.on('commentWasMarkedAsSpam', (message) => {
+                    this.showNotification(message);
+                })
             @endif
         }
      }"
