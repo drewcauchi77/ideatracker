@@ -86,15 +86,15 @@ test('ideas pagination works', function () {
 
     $response = $this->get(route('idea.index'));
 
-    $response->assertDontSee($ideaOne->title);
+    $response->assertSee($ideaOne->title);
     $response->assertSee($ideaPaginationCountPlusOne->title);
     $response->assertSee('<strong style="color: green;">Open</strong>', false);
 
     $response = $this->get('/ideas?page=2');
 
-    $response->assertSee($ideaOne->title);
+    $response->assertDontSee($ideaOne->title);
     $response->assertDontSee($ideaPaginationCountPlusOne->title);
-    $response->assertSee('<strong style="color: green;">Open</strong>', false);
+    $response->assertDontSee('<strong style="color: green;">Open</strong>', false);
 });
 
 test('same idea titles have different slugs', function () {

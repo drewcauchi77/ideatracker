@@ -4,4 +4,8 @@
     @empty
         <h3>NO COMMENTS YET</h3>
     @endforelse
+
+    <div>
+        {{ $comments->onEachSide(1)->links() }}
+    </div>
 </div>

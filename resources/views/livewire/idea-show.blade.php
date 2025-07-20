@@ -16,7 +16,7 @@
     @endadmin
 
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
-    <span class="comment-count">Number of Comments: <strong>{{ $idea->comments->count() }}</strong></span><br>
+    <span class="comment-count">Number of Comments: <strong>{{ $idea->comments()->count() }}</strong></span><br>
 
     @if($hasVoted)
         <span style="color: blue;font-size: 18px">!!! You have already voted for this !!!</span><br>

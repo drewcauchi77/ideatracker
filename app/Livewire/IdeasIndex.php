@@ -21,6 +21,7 @@ class IdeasIndex extends Component
     protected $queryString = ['status', 'category', 'filter', 'search'];
 
     protected $listeners = ['queryStringUpdatedStatus'];
+    protected $perPage = 10;
 
     public function mount()
     {
@@ -86,7 +87,7 @@ class IdeasIndex extends Component
                 ->withCount('votes')
                 ->withCount('comments')
                 ->orderBy('id', 'desc')
-                ->paginate(Idea::PAGINATION_COUNT),
+                ->paginate(),
             'categories' => $categories,
         ]);
     }

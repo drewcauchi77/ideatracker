@@ -14,3 +14,5 @@
         <a href="{{ route('register')  }}">REGISTER</a>
     @endauth
 </div>
+
+@livewireScripts
