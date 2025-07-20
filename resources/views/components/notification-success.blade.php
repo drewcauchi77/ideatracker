@@ -35,6 +35,10 @@
                 Livewire.on('commentWasUpdated', (message) => {
                     this.showNotification(message);
                 })
+
+                Livewire.on('commentWasDeleted', (message) => {
+                    this.showNotification(message);
+                })
             @endif
         }
      }"

@@ -12,5 +12,11 @@
 
             <livewire:edit-comment :comment="$comment" />
         @endcan
+
+        @can('delete', $comment)
+            <span>Can Delete</span>
+
+            <livewire:delete-comment :comment="$comment" />
+        @endcan
     @endauth
 </div>
