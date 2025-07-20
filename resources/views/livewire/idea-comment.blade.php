@@ -6,4 +6,11 @@
         <strong>OP</strong>
     @endif
     <img height="80" width="80" src="{{ $comment->user->getAvatarAttribute() }}">
+    @auth
+        @can('update', $comment)
+            <span>Can Edit</span>
+
+            <livewire:edit-comment :comment="$comment" />
+        @endcan
+    @endauth
 </div>

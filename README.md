@@ -4,3 +4,4 @@
 4. To check out AlpineJS refs and next ticks for accessibility
 5. To check out Laravel blade stacks to group modals for example (help for z-index issues)
 6. To check mostly AlpineJS and Livewire for JS hooks and logic overall
+7. To check package called Laravel FakeId that obfuscates the Laravel Model ID
