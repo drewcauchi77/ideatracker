@@ -5,6 +5,7 @@
         @endforeach
     </select> <br>
 
+    <textarea wire:model.defer="comment" placeholder="Enter comment here"></textarea>
     <label>
         <span>Notify All voters</span>
         <input wire:model.live="notifyAllVoters" type="checkbox">

@@ -71,7 +71,7 @@ test('initial status is set correctly', function() {
         ->assertSet('status', $statusConsidering->id);
 });
 
-test('can set status correctly', function() {
+test('can set status correctly with no comment', function() {
     $userA = User::factory()->create([
         'email' => 'cauchi1020@gmail.com'
     ]);
@@ -98,6 +98,47 @@ test('can set status correctly', function() {
     $this->assertDatabaseHas('ideas', [
         'id' => $ideaOne->id,
         'status_id' => $statusInProgress->id,
+    ]);
+
+    $this->assertDatabaseHas('comments', [
+        'body' => 'No comment was added',
+        'is_status_update' => 1,
+    ]);
+});
+
+test('can set status correctly with comment', function() {
+    $userA = User::factory()->create([
+        'email' => 'cauchi1020@gmail.com'
+    ]);
+
+    $categoryOne = Category::factory()->create([ 'name' => 'Category One' ]);
+    $statusConsidering = Status::factory()->create([ 'name' => 'Considering', 'id' => 2 ]);
+    $statusInProgress = Status::factory()->create([ 'name' => 'Considering', 'id' => 3 ]);
+
+    $ideaOne = Idea::factory()->create([
+        'user_id' => $userA->id,
+        'category_id' => $categoryOne->id,
+        'status_id' => $statusConsidering->id,
+        'title' => 'My First Idea'
+    ]);
+
+    Livewire::actingAs($userA)
+        ->test(SetStatus::class, [
+            'idea' => $ideaOne,
+        ])
+        ->set('status', $statusInProgress->id)
+        ->set('comment', 'Comment one')
+        ->call('setStatus')
+        ->assertDispatched('statusWasUpdated');
+
+    $this->assertDatabaseHas('ideas', [
+        'id' => $ideaOne->id,
+        'status_id' => $statusInProgress->id,
+    ]);
+
+    $this->assertDatabaseHas('comments', [
+        'body' => 'Comment one',
+        'is_status_update' => 1,
     ]);
 });
 

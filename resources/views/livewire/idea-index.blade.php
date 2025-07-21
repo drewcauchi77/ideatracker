@@ -11,7 +11,7 @@
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>
     <span class="votes-count">Number of Votes: <strong>{{ $votesCount }}</strong></span><br>
-    <span class="comment-count">Number of Comments: <strong>{{ $idea->comments_count }}</strong></span><br>
+    <span class="comment-count">Number of Comments: <strong wire:ignore>{{ $idea->comments_count }}</strong></span><br>
     @if($hasVoted)
         <span style="color: blue;font-size: 18px">!!! You have already voted for this !!!</span><br>
         <button style="background:blue; color: white; font-size:22px; font-weight: 800;cursor:pointer;" wire:click.prevent="vote">
