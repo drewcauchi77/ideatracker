@@ -1,5 +1,7 @@
 <livewire:status-filters />
-<livewire:comment-notifications />
+@auth()
+    <livewire:comment-notifications />
+@endauth
 <div>
     <livewire:ideas-index />
 </div>
