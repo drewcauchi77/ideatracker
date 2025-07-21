@@ -39,4 +39,8 @@
 
         <livewire:mark-comment-as-spam :comment="$comment" />
     @endauth
+
+    @if (session('scrollToComment'))
+        <x-notification-success :redirect="true" message-to-display="Scroll to {{ session('scrollToComment') }}" />
+    @endif
 </div>

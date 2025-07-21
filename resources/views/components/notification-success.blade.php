@@ -1,6 +1,7 @@
 @props([
     'redirect' => false,
-    'messageToDisplay' => ''
+    'messageToDisplay' => '',
+    'type' => 'success'
 ])
 
 <div
@@ -49,6 +50,9 @@
     x-show="isOpen"
     x-init="init()"
     style="position: absolute; display: flex; background-color: gray; bottom: 10px; right: 10px; margin: auto; height: 60px; padding: 20px; min-width: 240px; border-radius: 8px;">
+    @if ($type == 'error')
+        <span>ERRORRRRRR</span>
+    @endif
     <strong style="flex-grow: 1;" x-text="messageToDisplay"></strong>
     <em style="cursor: pointer;" @click="isOpen = false">Close</em>
 </div>
