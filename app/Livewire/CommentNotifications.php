@@ -33,8 +33,8 @@ class CommentNotifications extends Component
         $notification = DatabaseNotification::findOrFail($notificationid);
         $notification->markAsRead();
 
-        $idea = Idea::findOrFail($notification->data['idea_id']);
-        $comment = Comment::findOrFail($notification->data['comment_id']);
+        $idea = Idea::find($notification->data['idea_id']);
+        $comment = Comment::find($notification->data['comment_id']);
 
         if (!$comment || !$idea) {
             session()->flash('error_message', 'Comment no longer exists');

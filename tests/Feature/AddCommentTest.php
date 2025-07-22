@@ -4,6 +4,8 @@ use App\Livewire\AddComment;
 use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\User;
+use App\Notifications\CommentAdded;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
 test('add comment livewire component renders', function () {
@@ -48,6 +50,9 @@ test('add comment form works', function () {
     $user = User::factory()->create();
     $idea = Idea::factory()->create();
 
+    Notification::fake();
+    Notification::assertNothingSent();
+
     Livewire::actingAs($user)
         ->test(AddComment::class, [
             'idea' => $idea,
@@ -55,6 +60,8 @@ test('add comment form works', function () {
         ->set('comment', 'Comment Body')
         ->call('addComment')
         ->assertDispatched('commentWasAdded');
+
+    Notification::assertSentTo($idea->user, CommentAdded::class);
 
     $this->assertEquals(1, Comment::count());
     $this->assertEquals('Comment Body', $idea->comments()->first()->body);
