@@ -1,4 +1,4 @@
-<div>
+<div wire:poll="getNotificationsCount">
     <strong>BELL</strong>
     @if($notificationCount)
         <span>{{ $notificationCount }}</span><br>

@@ -105,5 +105,5 @@ test('comments pagination works', function () {
     ]));
 
     $response->assertDontSee($commentOne->body);
-    $response->assertDontSee(Comment::find(Comment::count())->body);
+    $response->assertSee(Comment::find(Comment::count())->body);
 });
