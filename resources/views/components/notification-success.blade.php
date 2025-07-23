@@ -44,6 +44,10 @@
                 Livewire.on('commentWasMarkedAsSpam', (message) => {
                     this.showNotification(message);
                 })
+
+                Livewire.on('statusWasUpdatedError', (message) => {
+                    this.showNotification(message);
+                })
             @endif
         }
      }"

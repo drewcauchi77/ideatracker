@@ -7,7 +7,7 @@
             <strong style="color: red; font-size: 15px;">Spam Reports {{ $idea->spam_reports }}</strong>
         @endif
     @endadmin
-    <p>{{ $idea->description }}</p>
+    <p>{!! nl2br(e($idea->description)) !!}</p>
     <span>Category: {{ $idea->category->name }}</span><br>
     <span>Status: <strong style="color: {{ $idea->status->color }};">{{ $idea->status->name }}</strong></span><br>
 

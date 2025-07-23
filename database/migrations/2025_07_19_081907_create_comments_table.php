@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('idea_id')->constrained('ideas');
+            $table->foreignId('idea_id')->constrained('ideas')->onDelete('cascade');
             $table->foreignId('status_id')->constrained('statuses');
             $table->text('body');
             $table->integer('spam_reports')->default(0);
