@@ -7,3 +7,5 @@
 7. To check package called Laravel FakeId that obfuscates the Laravel Model ID
 8. To check that listeners can also come from the frontend and can be listened to in Livewire for calls when needed and elevate skeleton loaders here
 9. To check Laravel Echo for Websocket connections
+10. To check laravelista/comments for nested comments and replies
+11. A useful video with multiple queries can be found here: https://laracasts.com/series/eloquent-techniques
