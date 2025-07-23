@@ -5,7 +5,7 @@
             <livewire:create-idea></livewire:create-idea>
         @else
             <span>Please login to add an idea</span>
-            <a href="{{ route('login') }}">Login</a>
+            <a wire:click.prevent="redirectToLogin" href="{{ route('login') }}">Login</a>
         @endauth
     </div>
 

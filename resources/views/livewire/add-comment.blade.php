@@ -10,8 +10,8 @@
         </form>
     @else
         <strong>Login or create account to add a comment</strong>
-        <a href="{{ route('login')  }}">LOGIN</a>
-        <a href="{{ route('register')  }}">REGISTER</a>
+        <a wire:click.prevent="redirectToLogin" href="{{ route('login')  }}">LOGIN</a>
+        <a wire:click.prevent="redirectToRegister" href="{{ route('register')  }}">REGISTER</a>
     @endauth
 </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\WithAuthRedirects;
 use App\Models\Comment;
 use App\Models\Idea;
 use App\Notifications\CommentAdded;
@@ -10,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AddComment extends Component
 {
+    use WithAuthRedirects;
+
     public $idea;
     public $comment;
     protected $rules = [
